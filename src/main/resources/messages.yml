@@ -1,0 +1,4 @@
+Prefix: "[Maintenance]"
+
+commands:
+  reload: "Configs Reloaded!"

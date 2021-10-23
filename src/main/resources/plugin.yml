@@ -1,0 +1,13 @@
+name: QuickMaintenance
+version: '${project.version}'
+main: me.bungfro.quickmaintenance.QuickMaintenance
+api-version: 1.17
+commands:
+  maintenance:
+    usage: /<command>
+    description: The main command.
+
+permissions:
+  maintenance.admin:
+    default: op
+    description: Permission for main command.

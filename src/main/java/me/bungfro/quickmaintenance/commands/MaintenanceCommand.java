@@ -1,5 +1,6 @@
 package me.bungfro.quickmaintenance.commands;
 
+import jdk.jpackage.main.Main;
 import me.bungfro.quickmaintenance.QuickMaintenance;
 import me.bungfro.quickmaintenance.config.ConfigConfig;
 import me.bungfro.quickmaintenance.config.MessagesConfig;
@@ -18,8 +19,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaintenanceCommand implements CommandExecutor
-{
+public class MaintenanceCommand implements CommandExecutor {
+    private QuickMaintenance main;
+
+    public MaintenanceCommand(QuickMaintenance quickMaintenance) {
+        this.main = quickMaintenance;
+    }
+
+
     String prefix = ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', MessagesConfig.get().getString("Prefix")));
     @Override
 
@@ -107,7 +114,27 @@ public class MaintenanceCommand implements CommandExecutor
                 sender.sendMessage(prefix + "------------------------------");
 
                 break;
+            case "gui":
 
+
+                main.openGui((Player) sender, "Main", "Nothing");
+                break;
+            case "help" :
+
+                sender.sendMessage(prefix + "------------------------------");
+
+                sender.sendMessage(prefix + "/maintenance help - Bring up this help menu");
+                sender.sendMessage(prefix + "/maintenance on - Turn on Maintenance Mode");
+                sender.sendMessage(prefix + "/maintenance off - Turn off Maintenance Mode");
+                sender.sendMessage(prefix + "/maintenance add - Add a player to Whitelist");
+                sender.sendMessage(prefix + "/maintenance remove - Remove a player from Whitelist ");
+                sender.sendMessage(prefix + "/maintenance list - List all Whitelisted players");
+                sender.sendMessage(prefix + "/maintenance gui - Open gui version");
+                sender.sendMessage(prefix + "/maintenance reload - Reload All Configs");
+
+
+
+                sender.sendMessage(prefix + "------------------------------");
         }
 
         return true;
@@ -124,4 +151,5 @@ public class MaintenanceCommand implements CommandExecutor
     public String translateCodes(String code) {
         return " " + ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', code));
     }
+
 }

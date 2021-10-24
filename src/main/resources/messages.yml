@@ -1,4 +1,11 @@
-Prefix: "[Maintenance]"
-
+Motd: This is a server!
+Prefix: '&7[&bMaintenance&7]'
 commands:
-  reload: "Configs Reloaded!"
+  maintenance:
+    reload: '&aConfigs Reloaded!'
+    'on': '&aMaintenance mode has turned on!'
+    'off': '&aMaintenance mode has turned off!'
+    add: '&aPlayer has been added to the whitelist.'
+    remove: '&aPlayer has been removed from the whitelist.'
+    kick: '&aMaintenance mode has been turned on for this server.'
+  reload: '&aConfigs Reloaded!'

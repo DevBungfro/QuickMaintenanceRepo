@@ -43,7 +43,7 @@ public class MaintenanceCommand implements CommandExecutor
             case "reload":
 
                 MessagesConfig.reload();
-                String reloadmessage = ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', MessagesConfig.get().getString("commands.reload")));
+                String reloadmessage = ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', MessagesConfig.get().getString("commands.maintenance.reload")));
 
                 sender.sendMessage(prefix + reloadmessage);
 
@@ -56,7 +56,7 @@ public class MaintenanceCommand implements CommandExecutor
                         if (!PlayersConfig.get().contains("player." + player.getName())) {
                             PlayersConfig.get().set("player." + player.getName(), true);
                             PlayersConfig.save();
-                            sender.sendMessage(prefix + "Whitelisted Player");
+                            sender.sendMessage(prefix + translateCodes(MessagesConfig.get().getString("commands.maintenance.add")));
                         } else {
                             sender.sendMessage(prefix + "Player is already whitelisted.");
                         }
@@ -73,7 +73,7 @@ public class MaintenanceCommand implements CommandExecutor
                         if (PlayersConfig.get().contains("player." + player.getName())) {
                             PlayersConfig.get().set("player." + player.getName(), null);
                             PlayersConfig.save();
-                            sender.sendMessage(prefix + "Removed player from whitelist.");
+                            sender.sendMessage(prefix + translateCodes(MessagesConfig.get().getString("commands.maintenance.remove")));
                         } else {
                             sender.sendMessage(prefix + "Player is not whitelisted.");
                         }
@@ -86,12 +86,12 @@ public class MaintenanceCommand implements CommandExecutor
             case "on":
                 ConfigConfig.get().set("maintenance.on", true);
                 kickPlayers();
-                sender.sendMessage(prefix + "Maintenance mode turned on!");
+                sender.sendMessage(prefix + translateCodes(MessagesConfig.get().getString("commands.maintenance.on")));
                 ConfigConfig.save();
                 break;
             case "off":
                 ConfigConfig.get().set("maintenance.on", false);
-                sender.sendMessage(prefix + "Maintenance mode turned off!");
+                sender.sendMessage(prefix + translateCodes(MessagesConfig.get().getString("commands.maintenance.off")));
                 ConfigConfig.save();
                 break;
             case "list":
@@ -116,8 +116,12 @@ public class MaintenanceCommand implements CommandExecutor
     public void kickPlayers() {
         for(Player player : Bukkit.getServer().getOnlinePlayers()) {
             if (!PlayersConfig.get().contains("player." + player.getName())) {
-                player.kickPlayer("Maintenance Mode has been turned on for this server.");
+                player.kickPlayer(translateCodes(MessagesConfig.get().getString("commands.maintenance.kick")));
             }
         }
+    }
+
+    public String translateCodes(String code) {
+        return " " + ChatColor.translateAlternateColorCodes('&', ChatColor.translateAlternateColorCodes('&', code));
     }
 }
